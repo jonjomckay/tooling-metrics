@@ -1,0 +1,28 @@
+{
+  "name": "metrics-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "react-scripts": "0.6.1"
+  },
+  "dependencies": {
+    "@salesforce-ux/design-system": "^2.1.3",
+    "chart.js": "^2.3.0",
+    "gridstack": "0.2.5",
+    "jquery-ui": "1.10.5",
+    "react": "^15.3.2",
+    "react-addons-update": "^15.3.2",
+    "react-chartjs-2": "^1.3.0",
+    "react-dom": "^15.3.2",
+    "react-gridstack": "^0.1.4",
+    "react-lightning-design-system": "^2.0.2",
+    "underscore": "^1.8.3"
+  },
+  "scripts": {
+    "copy-icons": "mkdir public/static && cp -r node_modules/@salesforce-ux/design-system/assets/icons public/static/",
+    "start": "npm run copy-icons && react-scripts start",
+    "build": "npm run copy-icons && react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
