@@ -17,7 +17,7 @@ so it's a doddle to get running.
 
 #### Requirements
 
-* Node.js 4+
+* Node.js 5+
 * npm
 
 The project is a basic Node.js frontend one, and is run using Webpack whilst in development. To get the server up and 
