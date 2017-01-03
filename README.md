@@ -25,19 +25,18 @@ running locally, follow these steps:
 
 1. Install all the dependencies
 
-````bash
-$ npm install
-````
-
+ ````bash
+ $ npm install
+ ````
 2. Configure the environment by creating a `.env` file (an example is included in [`.env.dist`](.env.dist))
 
 3. Run the Webpack server
 
-````bash
-$ npm start
-````
+ ````bash
+ $ npm start
+ ````
 
-3. A browser window should now open with the simple dashboard
+4. A browser window should now open with the simple dashboard
 
 ## Contributing
 
