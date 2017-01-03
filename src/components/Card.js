@@ -6,6 +6,10 @@ import LoadingSpinner from './LoadingSpinner';
 class Card extends Component {
     render() {
         var content = this.props.children;
+        if (!this.props.children) {
+            content = <div>No data</div>
+        }
+
         if (this.props.loading) {
             content = <LoadingSpinner />
         }
@@ -15,7 +19,7 @@ class Card extends Component {
           : <span />;
 
         return (
-          <article className="slds-card">
+          <article className="slds-card" style={{ display: 'flex', flex: '1', 'flex-direction': 'column', height: '100%' }}>
               <div className="slds-card__header slds-grid">
                   <header className="slds-media slds-media--center slds-has-flexi-truncate">
                       { icon }
@@ -29,8 +33,8 @@ class Card extends Component {
                   </div>
               </div>
 
-              <div className="slds-card__body">
-                  <div className="slds-table slds-p-around--medium">
+              <div className="slds-card__body" style={{ flex: '1' }}>
+                  <div className="slds-table slds-p-around--medium" style={{ height: '100%' }}>
                     { content }
                   </div>
               </div>

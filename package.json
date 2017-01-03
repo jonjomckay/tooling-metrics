@@ -19,7 +19,7 @@
     "underscore": "^1.8.3"
   },
   "scripts": {
-    "copy-icons": "mkdir public/static && cp -r node_modules/@salesforce-ux/design-system/assets/icons public/static/",
+    "copy-icons": "mkdir -p public/static && cp -r node_modules/@salesforce-ux/design-system/assets/icons public/static/",
     "start": "npm run copy-icons && react-scripts start",
     "build": "npm run copy-icons && react-scripts build",
     "test": "react-scripts test --env=jsdom",

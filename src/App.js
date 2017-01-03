@@ -132,7 +132,7 @@ class App extends Component {
 
     onWidgetAdd = (widget) => {
         var item = {
-            autoPosition: true,
+            autoPosition: false,
             id: widget.id,
             height: 4,
             width: 4,

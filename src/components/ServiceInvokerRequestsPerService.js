@@ -1,78 +1,43 @@
-import React, { Component } from 'react';
-import { Pie } from 'react-chartjs-2';
+import React from 'react';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from "react-lightning-design-system";
 
 import Card from './Card';
+import TableMetricComponent from './TableMetricComponent';
+import FetchHelper from '../fetch/FetchHelper';
 
-export default class ServiceInvokerRequestsPerService extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            empty: false,
-            loading: true,
-            data: {
-                labels: [],
-                datasets: [
-
-                ]
-            }
-        }
-    }
-
+export default class ServiceInvokerRequestsPerService extends TableMetricComponent {
     componentDidMount() {
-        fetch(process.env.REACT_APP_METRICS_BASE_URL + '/services/requests/top?from=2016-06-01')
-            .then(response => response.json())
-            .then(data => {
-                var labels = data.map(function (point) {
-                    return point.name;
-                });
-
-                var datasetData = data.map(function (point) {
-                    return point.value;
-                });
-
-                this.setState({
-                    empty: data.length ? false : true,
-                    loading: false,
-                    data: {
-                        labels: labels,
-                        datasets: [
-                            this.createDataset(datasetData)
-                        ]
-                    }
-                });
-            });
-    }
-
-    createDataset(data) {
-        return {
-            backgroundColor: [
-                "#FF6384",
-                "#36A2EB",
-                "#FFCE56"
-            ],
-            hoverBackgroundColor: [
-                "#FF6384",
-                "#36A2EB",
-                "#FFCE56"
-            ],
-            data: data,
-        };
+        FetchHelper.fetch('/services/requests/top?from=2016-11-01')
+          .then(this.onUpdate)
+          .catch(this.onError);
     }
 
     render() {
-        var content;
-
-        if (this.state.empty) {
-            content = <div>No failures</div>
-        } else {
-            content = <Pie data={ this.state.data } options={{responsive: true, legend: { display: false } }} height={ 235 } width={ 600 } />
-        }
+        var endpoints = this.state.data.map(function (endpoint) {
+            return (
+              <TableRow key={ endpoint.name }>
+                  <TableRowColumn>{ endpoint.name }</TableRowColumn>
+                  <TableRowColumn>{ endpoint.value }</TableRowColumn>
+              </TableRow>
+            );
+        });
 
         return (
-            <Card title="# of requests per service" iconCategory="custom" iconName="custom53" loading={ this.state.loading } onRemove={ this.props.onRemove }>
-                { content }
-            </Card>
+          <Card title="# of Service Requests per Service" iconCategory="standard" iconName="feed" loading={ this.state.loading }
+                onRemove={ this.props.onRemove }>
+              <Table>
+                  <TableHeader>
+                      <TableRow>
+                          <TableHeaderColumn>URL</TableHeaderColumn>
+                          <TableHeaderColumn>#</TableHeaderColumn>
+                      </TableRow>
+                  </TableHeader>
+
+                  <TableBody>
+                      { endpoints }
+                  </TableBody>
+              </Table>
+          </Card>
         );
     }
 }

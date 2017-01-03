@@ -1,27 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from "react-lightning-design-system";
 
-import Card from './Card';
+import Card from "./Card";
+import FetchHelper from "../fetch/FetchHelper";
+import TableMetricComponent from "./TableMetricComponent";
 
-export default class ApiTopRequestedEndpoints extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loading: true,
-            data: []
-        };
-    }
-
+export default class ApiTopRequestedEndpoints extends TableMetricComponent {
     componentDidMount() {
-        fetch(process.env.REACT_APP_METRICS_BASE_URL + '/api/requests/top?limit=8')
-          .then(response => response.json())
-          .then(data => {
-            this.setState({
-                loading: false,
-                data: data
-            });
-        });
+        FetchHelper.fetch('/api/requests/top?limit=8')
+          .then(this.onUpdate)
+          .catch(this.onError);
     }
 
     render() {
@@ -35,20 +23,21 @@ export default class ApiTopRequestedEndpoints extends Component {
         });
 
         return (
-            <Card title="Top Requested Endpoints" iconCategory="standard" iconName="feed" loading={ this.state.loading } onRemove={ this.props.onRemove }>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHeaderColumn>URL</TableHeaderColumn>
-                            <TableHeaderColumn>#</TableHeaderColumn>
-                        </TableRow>
-                    </TableHeader>
+          <Card title="Top Requested Endpoints" iconCategory="standard" iconName="feed" loading={ this.state.loading }
+                onRemove={ this.props.onRemove }>
+              <Table>
+                  <TableHeader>
+                      <TableRow>
+                          <TableHeaderColumn>URL</TableHeaderColumn>
+                          <TableHeaderColumn>#</TableHeaderColumn>
+                      </TableRow>
+                  </TableHeader>
 
-                    <TableBody>
-                        { endpoints }
-                    </TableBody>
-                </Table>
-            </Card>
+                  <TableBody>
+                      { endpoints }
+                  </TableBody>
+              </Table>
+          </Card>
         );
     }
 }
