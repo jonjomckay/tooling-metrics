@@ -29,7 +29,9 @@ running locally, follow these steps:
 $ npm install
 ````
 
-2. Run the Webpack server
+2. Configure the environment by creating a `.env` file (an example is included in [`.env.dist`](.env.dist))
+
+3. Run the Webpack server
 
 ````bash
 $ npm start
